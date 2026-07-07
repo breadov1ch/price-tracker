@@ -2,11 +2,11 @@ package main
 
 import (
 	"log"
-	"os"
 	"price-tracker/internal/database"
 	"price-tracker/internal/handlers"
 	"price-tracker/internal/middleware"
 	"price-tracker/internal/worker"
+	"strings"
 
 	_ "price-tracker/docs"
 
@@ -35,13 +35,16 @@ func main() {
 	}
 	r := gin.Default()
 
-	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:5173"}, // Порт твого Vite-фронтенду
-		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
-		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
-		ExposeHeaders:    []string{"Content-Length"},
-		AllowCredentials: true, 
-	}))
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}
+	corsConfig.AllowHeaders = []string{"Origin", "Content-Type", "Accept", "Authorization", "X-Requested-With"}
+	corsConfig.ExposeHeaders = []string{"Content-Length"}
+	corsConfig.AllowCredentials = true
+	corsConfig.AllowOriginFunc = func(origin string) bool {
+		return strings.HasPrefix(origin, "http://localhost") || strings.HasPrefix(origin, "http://127.0.0.1")
+	}
+
+	r.Use(cors.New(corsConfig))
 	database.InitDB()
 	worker.InitPriceTrackers()
 
@@ -72,5 +75,5 @@ func main() {
 		protected.DELETE("/products/:id", handlers.DeleteUserProduct)
 	}
 
-	r.Run(":" + os.Getenv("PORT"))
+	r.Run(":8080")
 }

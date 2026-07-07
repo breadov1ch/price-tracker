@@ -1,0 +1,20 @@
+services:
+  backend:
+    build: 
+      context: ./backend/price_tracker
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/root/data
+    environment:
+      - DB_PATH=/root/data/tracker.db
+
+  frontend:
+    build: 
+      context: ./frontend/price-tracker
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
