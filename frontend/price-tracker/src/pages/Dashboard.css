@@ -1,0 +1,311 @@
+/* ==========================================================================
+   GLOBAL RESET & BASE STYLES (Cyber-Grunge Base)
+   ========================================================================== */
+.dashboard-page-dark {
+  min-height: 100vh;
+  background-color: #000000; /* Абсолютный черный фон */
+  color: #ffffff;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding: 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   HEADER ZONE (OPIUM MINIMALISM)
+   ========================================================================== */
+.dash-header-opium {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid #161616; /* Очень темная строгая линия */
+  padding-bottom: 28px;
+  margin-bottom: 48px;
+}
+
+.brand-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.brand-eyebrow {
+  font-family: monospace;
+  font-size: 10px;
+  color: #555555;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.brand-title-uppercase {
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* Кнопки управления */
+.action-zone {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-opium-solid {
+  background-color: #ffffff;
+  color: #000000;
+  text-decoration: none;
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 14px 28px;
+  border: 1px solid #ffffff;
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.btn-opium-solid:hover {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.btn-opium-ghost {
+  background: transparent;
+  color: #666666;
+  border: 1px solid #161616;
+  font-family: monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 14px 24px;
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.btn-opium-ghost:hover {
+  color: #ffffff;
+  border-color: #ffffff;
+  background: #0d0d0d;
+}
+
+/* ==========================================================================
+   MAIN GRID MANAGEMENT
+   ========================================================================== */
+.opium-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 32px;
+  width: 100%;
+}
+
+/* ==========================================================================
+   THE OPIUM PRODUCT CARD
+   ========================================================================== */
+.opium-card {
+  background: #030303; /* Почти сливается с фоном, выделяясь текстурой */
+  border: 1px solid #161616;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+              transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.opium-card:hover {
+  border-color: #333333; /* Аккуратное раскрытие границ при наведении */
+  transform: translateY(-2px);
+}
+
+/* Медиа-сейф (Защищенный блок для картинки) */
+.card-media-vault {
+  width: 100%;
+  height: 220px;
+  background: #070707;
+  overflow: hidden;
+  border-bottom: 1px solid #161616;
+  position: relative;
+}
+
+.card-img-filtered {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Мрачный, контрастный чб стиль под эстетику Opium */
+  filter: grayscale(100%) contrast(115%) brightness(90%); 
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.opium-card:hover .card-img-filtered {
+  filter: grayscale(0%) contrast(100%) brightness(100%);
+  transform: scale(1.03); /* Легкое, дорогое зумирование */
+}
+
+/* Заглушка, если изображения нет */
+.card-img-void {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+  font-size: 11px;
+  color: #262626; /* Едва заметный текст-заглушка */
+  letter-spacing: 2px;
+  background: #050505;
+}
+
+/* Тело мета-данных карточки */
+.card-meta-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.meta-head-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.item-title-bold {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin: 0;
+  color: #ffffff;
+  line-height: 1.4;
+  /* Ограничение длинного текста в 2 строки */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.item-redirect-badge {
+  font-family: monospace;
+  font-size: 10px;
+  color: #666666;
+  text-decoration: none;
+  border: 1px solid #161616;
+  padding: 5px 10px;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+.item-redirect-badge:hover {
+  color: #ffffff;
+  border-color: #444444;
+  background-color: #0d0d0d;
+}
+
+/* Двухколоночный блок метрик (Цены) */
+.metrics-display-subgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px dashed #161616;
+  border-bottom: 1px dashed #161616;
+  padding: 18px 0;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.metric-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric-label {
+  font-family: monospace;
+  font-size: 10px;
+  color: #444444;
+  letter-spacing: 1px;
+}
+
+.metric-value {
+  font-size: 17px;
+  font-weight: 800;
+  font-family: monospace;
+}
+
+/* Стилизация изменения цен */
+.price-color-same { color: #ffffff; }
+.price-color-up { color: #ff3b30; } /* Плотный красный при росте цены */
+.price-color-down { color: #00ff66; text-shadow: 0 0 15px rgba(0, 255, 102, 0.15); } /* Неоновый зеленый при падении */
+
+.delta-color-same { color: #333333; }
+.delta-color-up { color: #ff3b30; }
+.delta-color-down { color: #00ff66; }
+
+/* Подвал (Таймстемп и деструктор) */
+.card-meta-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timestamp-data {
+  font-family: monospace;
+  font-size: 11px;
+  color: #333333;
+}
+
+.btn-destroy-item {
+  background: transparent;
+  border: none;
+  color: #444444;
+  font-family: monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 6px 0;
+  transition: color 0.2s ease;
+}
+
+.btn-destroy-item:hover:not(:disabled) {
+  color: #ff3b30; /* Мягкое предупреждение о дестрое при наведении */
+}
+
+.btn-destroy-item:disabled {
+  color: #222222;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   SYSTEM STATES (LOADING, EMPTY, ERROR)
+   ========================================================================== */
+.system-status-msg {
+  font-family: monospace;
+  font-size: 12px;
+  color: #555555;
+  letter-spacing: 2px;
+  text-align: center;
+  margin: 120px auto;
+}
+
+.error-neon {
+  color: #ff3b30;
+  text-shadow: 0 0 15px rgba(255, 59, 48, 0.2);
+}
+
+.opium-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin: 140px auto;
+  text-align: center;
+}
+
+.empty-text {
+  font-family: monospace;
+  font-size: 12px;
+  color: #444444;
+  letter-spacing: 2px;
+}

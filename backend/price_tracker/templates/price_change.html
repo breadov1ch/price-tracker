@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обновление цены</title>
+</head>
+<body style="margin: 0; padding: 0; width: 100% !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f8fafc; margin: 0; padding: 48px 20px;">
+        <tr>
+            <td align="center" valign="top">
+                
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 540px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);">
+                    
+                    <tr>
+                        <td style="padding: 40px 40px 20px 40px; text-align: left;">
+                            <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #64748b; display: block; margin-bottom: 12px;">Мониторинг цен</span>
+                            <h1 style="margin: 0; font-size: 26px; font-weight: 700; color: #0f172a; letter-spacing: -0.5px; line-height: 1.2;">Изменение стоимости товара</h1>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 0 40px 40px 40px;">
+                            
+                            <p style="margin: 0 0 24px 0; font-size: 16px; line-height: 1.6; color: #334155;">
+                                Здравствуйте, <strong style="color: #0f172a;">{{.UserName}}</strong>.
+                            </p>
+                            
+                            <p style="margin: 0 0 32px 0; font-size: 15px; line-height: 1.6; color: #64748b;">
+                                Информируем вас о том, что стоимость товара, за изменением которой вы следите, была обновлена.
+                            </p>
+
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f8fafc; border: 1px solid #f1f5f9; border-radius: 12px; margin-bottom: 32px;">
+                                <tr>
+                                    <td style="padding: 24px;">
+                                        
+                                        {{if .ImageURL}}
+                                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 20px;">
+                                            <tr>
+                                                <td align="center" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                                                    <img src="{{.ImageURL}}" alt="{{.ProductName}}" style="max-width: 100%; max-height: 180px; object-fit: contain; display: block;">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        {{end}}
+
+                                        <div style="font-size: 16px; font-weight: 600; color: #0f172a; line-height: 1.4; margin-bottom: 20px;">
+                                            {{.ProductName}}
+                                        </div>
+
+                                        <table cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td valign="bottom" style="padding-right: 16px;">
+                                                    <span style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8; display: block; margin-bottom: 4px;">Прежняя цена</span>
+                                                    <span style="font-size: 16px; color: #94a3b8; text-decoration: line-through; font-weight: 500;">{{.OldPrice}} грн</span>
+                                                </td>
+                                                <td valign="bottom" style="border-left: 1px solid #e2e8f0; padding-left: 16px;">
+                                                    <span style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #2563eb; display: block; margin-bottom: 4px;">Новая цена</span>
+                                                    <span style="font-size: 22px; color: #0f172a; font-weight: 700; letter-spacing: -0.5px;">{{.NewPrice}} грн</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td>
+                                        <a href="{{.URL}}" target="_blank" style="display: inline-block; background-color: #1e293b; color: #ffffff; font-size: 15px; font-weight: 600; text-decoration: none; padding: 14px 32px; border-radius: 8px; letter-spacing: 0.3px; text-align: center; transition: background-color 0.2s ease;">Перейти к товару</a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 24px 40px; background-color: #f8fafc; border-top: 1px solid #e2e8f0; text-align: left;">
+                            <p style="margin: 0; font-size: 12px; line-height: 1.5; color: #94a3b8;">
+                                Данное уведомление отправлено автоматически, так как вы подписались на обновления стоимости указанного товара. Если вы хотите отменить подписку, пожалуйста, измените настройки в вашем личном кабинете.
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+                </td>
+        </tr>
+    </table>
+
+</body>
+</html>

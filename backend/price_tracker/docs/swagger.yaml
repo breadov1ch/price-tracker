@@ -1,0 +1,225 @@
+basePath: /api
+definitions:
+  internal_handlers.AddProductInput:
+    properties:
+      name:
+        type: string
+      url:
+        type: string
+    required:
+    - name
+    - url
+    type: object
+  internal_handlers.LoginInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  internal_handlers.RegisterInput:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  price-tracker_internal_models.Product:
+    properties:
+      product_id:
+        type: integer
+      product_last_price:
+        type: number
+      product_name:
+        type: string
+      product_url:
+        type: string
+      updated_at:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API сервер для відстеження цін на товари.
+  title: Price Tracker API
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Перевіряє пошту/пароль та повертає JWT-токен
+      parameters:
+      - description: Дані для входу
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handlers.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Успішний вхід, повертає токен
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Неправильний пароль або логін
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Авторизація користувача
+      tags:
+      - auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Створює новий акаунт користувача в базі даних
+      parameters:
+      - description: Дані для реєстрації
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handlers.RegisterInput'
+      produces:
+      - application/json
+      responses:
+        "21":
+          description: Успішна реєстрація
+          schema:
+            type: stage_success
+        "400":
+          description: Помилка у запиті або дублікат Email
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Реєстрація нового користувача
+      tags:
+      - auth
+  /products:
+    get:
+      consumes:
+      - application/json
+      description: Повертає список усіх товарів, які відстежує поточний авторизований
+        користувач
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Список товарів
+          schema:
+            items:
+              $ref: '#/definitions/price-tracker_internal_models.Product'
+            type: array
+        "401":
+          description: Неавторизовано
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Отримати товари користувача
+      tags:
+      - products
+    post:
+      consumes:
+      - application/json
+      description: Додає посилання на товар до акаунта поточного користувача. Якщо
+        товар новий — створює його.
+      parameters:
+      - description: URL товару
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handlers.AddProductInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Товар успішно додано
+          schema:
+            $ref: '#/definitions/price-tracker_internal_models.Product'
+        "400":
+          description: Некоректний URL
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Неавторизовано
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Додати товар для відстеження
+      tags:
+      - products
+  /products/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Видаляє зв'язок між поточним користувачем та товаром за його ID.
+        Якщо товар більше ніхто не відстежує, він повністю видаляється з бази даних.
+      parameters:
+      - description: ID товару, який потрібно видалити
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Товар успішно видалено з відстеження
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Некоректний ID
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Неавторизовано
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Товар або користувача не знайдено
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Видалити товар із відстеження
+      tags:
+      - products
+securityDefinitions:
+  BearerAuth:
+    description: 'Введіть токен у форматі: Bearer <ваш_токен>'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
