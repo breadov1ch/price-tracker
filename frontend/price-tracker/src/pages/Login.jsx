@@ -37,7 +37,7 @@ export default function Login() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <p className="auth-eyebrow">Price Tracker</p>
+        <p className="auth-eyebrow">Price Tracer</p>
         <h1 className="auth-title">Вхід</h1>
 
         <form onSubmit={handleSubmit} noValidate>
