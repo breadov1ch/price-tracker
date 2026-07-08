@@ -9,6 +9,8 @@ services:
       - ./data:/root/data
     environment:
       - DB_PATH=/root/data/tracker.db
+    env_file:
+      - ./backend/price_tracker/.env
 
   frontend:
     build: 
