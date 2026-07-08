@@ -7,10 +7,14 @@ services:
       - "8080:8080"
     volumes:
       - ./data:/root/data
+      # СЛЕДУЮЩАЯ СТРОКА — САМАЯ ВАЖНАЯ:
+      - ./backend/price_tracker/.env:/app/.env
+    environment:
+      - DB_PATH=/root/data/tracker.db
+      - GIN_MODE=release
+    # env_file можно оставить или удалить, он теперь не критичен
     env_file:
       - ./backend/price_tracker/.env
-    environment:
-      DB_PATH: /root/data/tracker.db
 
   frontend:
     build: 
