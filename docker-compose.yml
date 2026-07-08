@@ -1,16 +1,16 @@
 services:
   backend:
-    build: 
+    build:
       context: ./backend/price_tracker
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
     volumes:
       - ./data:/root/data
-    environment:
-      - DB_PATH=/root/data/tracker.db
     env_file:
       - ./backend/price_tracker/.env
+    environment:
+      DB_PATH: /root/data/tracker.db
 
   frontend:
     build: 
