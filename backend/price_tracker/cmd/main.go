@@ -31,22 +31,16 @@ import (
 // @description                Введіть токен у форматі: Bearer <ваш_токен>
 func main() {
 	var envPaths = []string{".env", "/root/.env", "/app/.env"}
-	loaded := false
 
 	for _, envPath := range envPaths {
 		if _, err := os.Stat(envPath); err == nil {
 			if err := godotenv.Load(envPath); err != nil {
-				log.Printf("Попередження: не вдалося завантажити файл .env з %s: %v", envPath, err)
+				log.Printf("Попередження: не вдалося прочитати .env з %s: %v", envPath, err)
 			} else {
-				loaded = true
 				log.Printf("Завантажено .env з %s", envPath)
 				break
 			}
 		}
-	}
-
-	if !loaded {
-		log.Println("Файл .env не знайдено, використовуються змінні середовища")
 	}
 
 	r := gin.Default()

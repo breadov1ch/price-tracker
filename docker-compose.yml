@@ -3,20 +3,21 @@ services:
     build:
       context: ./backend/price_tracker
       dockerfile: Dockerfile
+    restart: always
     ports:
       - "8080:8080"
     volumes:
       - ./data:/root/data
-      # СЛЕДУЮЩАЯ СТРОКА — САМАЯ ВАЖНАЯ:
-      - ./backend/price_tracker/.env:/app/.env
+      - ./backend/price_tracker/.env:/root/.env:ro
+      - ./backend/price_tracker/.env:/app/.env:ro
     environment:
-      - DB_PATH=/root/data/tracker.db
-      - GIN_MODE=release
-    # env_file можно оставить или удалить, он теперь не критичен
+      DB_PATH: /root/data/tracker.db
+      GIN_MODE: release
     env_file:
       - ./backend/price_tracker/.env
 
   frontend:
+    restart: always
     build: 
       context: ./frontend/price-tracker
       dockerfile: Dockerfile
